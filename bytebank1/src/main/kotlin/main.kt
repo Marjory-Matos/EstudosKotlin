@@ -19,7 +19,31 @@ fun main() {
     println(contaFran.numero)
     println(contaFran.saldo)
 
+    println("Depositando na conta do Alex")
+    contaAlex.deposita(50.0)
+    println(contaAlex.saldo)
 
+    println("Depositando na conta da Fran")
+    contaFran.deposita(60.0)
+    println(contaFran.saldo)
+
+    println("sacando na conta do Alex")
+    contaAlex.saca(20.0)
+    println(contaAlex.saldo)
+
+    println("Sacando na conta da Fran")
+    contaFran.saca(20.0)
+    println(contaFran.saldo)
+
+    println("Transferencia da conta da Fran para a conta do Alex")
+    if(contaFran.transfere(100.0, contaAlex)){
+        println("Transferencia sucedida")
+    }else {
+        println("Falha na transferencia")
+    }
+
+    println(contaAlex.saldo)
+    println(contaFran.saldo)
 }
 
 //temos que criar a classe no mesmo nivel de arquivo
@@ -27,6 +51,48 @@ class Conta {
     var titular = ""
     var numero = 0
     var saldo = 0.0
+
+    fun deposita(valor: Double){
+        saldo += valor
+    }
+
+    fun saca(valor: Double){
+        if(saldo >= valor){
+            saldo -= valor
+        }
+    }
+
+    //para indicar que queremos um retorno, por padrao ele nos retorna um Unit, mas como queremos um boolean indicamos ele
+    fun transfere(valor: Double, destino: Conta): Boolean {
+        if(saldo >= valor){
+            saldo -= valor
+            destino.saldo += valor
+            return true
+        }
+            return false
+        }
+
+}
+
+
+
+
+fun testaCopiaEReferencias(){
+    //quando informamos que uma variavel recebe outra, estamos realizando uma copia dela
+    val numeroX = 10
+    var numeroY = numeroX
+    numeroY++
+    println(numeroX)
+    println(numeroY)
+
+    //quando fazemos isso com uma classe ele nao cria uma copia e sim instancia ela e por isso o valor sera alterado nas duas
+    val contaJoao = Conta()
+    contaJoao.titular = "Joao"
+    var contaMaria = contaJoao
+    contaMaria.titular = "Maria"
+    println(contaJoao.titular)
+    println(contaMaria.titular)
+
 }
 
 fun testaLacos(){
