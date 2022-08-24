@@ -4,6 +4,8 @@ fun main() {
     //instancia da classe
     //nao conseguiremos imprimir dessa forma por isso teremos que a colocar dentro de uma variavel
     val contaAlex = Conta("Alex", 1000)
+    //poderiamos indicar os parametros por labels, e elas nao precisam seguir a ordem do construtor:
+    /* val contaAlex = Conta( numero = 1000, titular = "Alex") */
     /* contaAlex.titular = "Alex"
     contaAlex.numero = 1000 */
     contaAlex.deposita(200.0)
@@ -48,7 +50,7 @@ fun main() {
 
 //temos que criar a classe no mesmo nivel de arquivo
 //esses parametros sao do construtor, pois utilizamos ele ja na classe inicial
-class Conta(var titular: String, var numero: Int) {
+class Conta(var titular: String, val numero: Int) {
     //var titular = ""
     //var numero = 0
     var saldo = 0.0
