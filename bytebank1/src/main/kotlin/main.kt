@@ -3,17 +3,17 @@ fun main() {
 
     //instancia da classe
     //nao conseguiremos imprimir dessa forma por isso teremos que a colocar dentro de uma variavel
-    val contaAlex = Conta()
-    contaAlex.titular = "Alex"
-    contaAlex.numero = 1000
+    val contaAlex = Conta("Alex", 1000)
+    /* contaAlex.titular = "Alex"
+    contaAlex.numero = 1000 */
     contaAlex.deposita(200.0)
     println(contaAlex.titular)
     println(contaAlex.numero)
     println(contaAlex.saldo)
 
-    val contaFran = Conta()
-    contaFran.titular = "Fran"
-    contaFran.numero = 1001
+    val contaFran = Conta("Fran", 1001)
+    /* contaFran.titular = "Fran"
+    contaFran.numero = 1001 */
     contaFran.deposita(300.0)
     println(contaFran.titular)
     println(contaFran.numero)
@@ -47,22 +47,20 @@ fun main() {
 }
 
 //temos que criar a classe no mesmo nivel de arquivo
-class Conta {
-    var titular = ""
-    var numero = 0
+//esses parametros sao do construtor, pois utilizamos ele ja na classe inicial
+class Conta(var titular: String, var numero: Int) {
+    //var titular = ""
+    //var numero = 0
     var saldo = 0.0
+        //caso queremos que somente nos modificamos tal atributo colocamos o set como private
+        private set
 
-    //em nossas variaveis ja sao implementados o get e set visto isso, podemos modificar como iremos setar
-        //properties
-        //field eh o valor que esta internamente, no caso deste eh o valor do saldo
-       /* set(valor){
-            if(valor > 0) {
-                field = valor
-            }
-        } */
+    //construtor padrao usamos somente quando queremos modificar algo
+   /* constructor(titular: String, numero: Int){
+        this.titular = titular
+        this.numero = numero
+    } */
 
-    //mas caso queremos que somente nos modificamos tal atributo colocamos o set como private
-    private set
 
     fun deposita(valor: Double){
         if(valor > 0) {
@@ -110,10 +108,10 @@ fun testaCopiaEReferencias(){
     println(numeroY)
 
     //quando fazemos isso com uma classe ele nao cria uma copia e sim instancia ela e por isso o valor sera alterado nas duas
-    val contaJoao = Conta()
-    contaJoao.titular = "Joao"
-    var contaMaria = contaJoao
-    contaMaria.titular = "Maria"
+    val contaJoao = Conta("Joao", 1002)
+    /* contaJoao.titular = "Joao" */
+    var contaMaria = Conta("Maria", 1003)
+    /* contaMaria.titular = "Maria" */
     println(contaJoao.titular)
     println(contaMaria.titular)
 
