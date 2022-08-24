@@ -6,34 +6,34 @@ fun main() {
     val contaAlex = Conta()
     contaAlex.titular = "Alex"
     contaAlex.numero = 1000
-    contaAlex.saldo = 200.0
+    contaAlex.setSaldo(200.0)
     println(contaAlex.titular)
     println(contaAlex.numero)
-    println(contaAlex.saldo)
+    println(contaAlex.getSaldo())
 
     val contaFran = Conta()
     contaFran.titular = "Fran"
     contaFran.numero = 1001
-    contaFran.saldo = 300.0
+    contaFran.setSaldo(300.0)
     println(contaFran.titular)
     println(contaFran.numero)
-    println(contaFran.saldo)
+    println(contaFran.getSaldo())
 
     println("Depositando na conta do Alex")
     contaAlex.deposita(50.0)
-    println(contaAlex.saldo)
+    println(contaAlex.getSaldo())
 
     println("Depositando na conta da Fran")
     contaFran.deposita(60.0)
-    println(contaFran.saldo)
+    println(contaFran.getSaldo())
 
     println("sacando na conta do Alex")
     contaAlex.saca(20.0)
-    println(contaAlex.saldo)
+    println(contaAlex.getSaldo())
 
     println("Sacando na conta da Fran")
     contaFran.saca(20.0)
-    println(contaFran.saldo)
+    println(contaFran.getSaldo())
 
     println("Transferencia da conta da Fran para a conta do Alex")
     if(contaFran.transfere(100.0, contaAlex)){
@@ -42,15 +42,16 @@ fun main() {
         println("Falha na transferencia")
     }
 
-    println(contaAlex.saldo)
-    println(contaFran.saldo)
+    println(contaAlex.getSaldo())
+    println(contaFran.getSaldo())
 }
 
 //temos que criar a classe no mesmo nivel de arquivo
 class Conta {
     var titular = ""
     var numero = 0
-    var saldo = 0.0
+    //modificadores de acesso
+   private var saldo = 0.0
 
     fun deposita(valor: Double){
         saldo += valor
@@ -66,12 +67,20 @@ class Conta {
     fun transfere(valor: Double, destino: Conta): Boolean {
         if(saldo >= valor){
             saldo -= valor
-            destino.saldo += valor
+            destino.deposita(valor)
             return true
         }
             return false
         }
+    fun getSaldo(): Double{
+        return saldo
+    }
 
+    fun setSaldo(valor: Double) {
+        if (valor > 0) {
+            saldo = valor
+        }
+    }
 }
 
 
