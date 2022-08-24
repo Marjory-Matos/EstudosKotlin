@@ -6,34 +6,34 @@ fun main() {
     val contaAlex = Conta()
     contaAlex.titular = "Alex"
     contaAlex.numero = 1000
-    contaAlex.setSaldo(200.0)
+    contaAlex.deposita(200.0)
     println(contaAlex.titular)
     println(contaAlex.numero)
-    println(contaAlex.getSaldo())
+    println(contaAlex.saldo)
 
     val contaFran = Conta()
     contaFran.titular = "Fran"
     contaFran.numero = 1001
-    contaFran.setSaldo(300.0)
+    contaFran.deposita(300.0)
     println(contaFran.titular)
     println(contaFran.numero)
-    println(contaFran.getSaldo())
+    println(contaFran.saldo)
 
     println("Depositando na conta do Alex")
     contaAlex.deposita(50.0)
-    println(contaAlex.getSaldo())
+    println(contaAlex.saldo)
 
     println("Depositando na conta da Fran")
     contaFran.deposita(60.0)
-    println(contaFran.getSaldo())
+    println(contaFran.saldo)
 
     println("sacando na conta do Alex")
     contaAlex.saca(20.0)
-    println(contaAlex.getSaldo())
+    println(contaAlex.saldo)
 
     println("Sacando na conta da Fran")
     contaFran.saca(20.0)
-    println(contaFran.getSaldo())
+    println(contaFran.saldo)
 
     println("Transferencia da conta da Fran para a conta do Alex")
     if(contaFran.transfere(100.0, contaAlex)){
@@ -42,19 +42,32 @@ fun main() {
         println("Falha na transferencia")
     }
 
-    println(contaAlex.getSaldo())
-    println(contaFran.getSaldo())
+    println(contaAlex.saldo)
+    println(contaFran.saldo)
 }
 
 //temos que criar a classe no mesmo nivel de arquivo
 class Conta {
     var titular = ""
     var numero = 0
-    //modificadores de acesso
-   private var saldo = 0.0
+    var saldo = 0.0
+
+    //em nossas variaveis ja sao implementados o get e set visto isso, podemos modificar como iremos setar
+        //properties
+        //field eh o valor que esta internamente, no caso deste eh o valor do saldo
+       /* set(valor){
+            if(valor > 0) {
+                field = valor
+            }
+        } */
+
+    //mas caso queremos que somente nos modificamos tal atributo colocamos o set como private
+    private set
 
     fun deposita(valor: Double){
-        saldo += valor
+        if(valor > 0) {
+            saldo += valor
+        }
     }
 
     fun saca(valor: Double){
@@ -72,7 +85,9 @@ class Conta {
         }
             return false
         }
-    fun getSaldo(): Double{
+
+    //get e set nao sao interessantes para o kotlin
+    /*fun getSaldo(): Double{
         return saldo
     }
 
@@ -80,7 +95,7 @@ class Conta {
         if (valor > 0) {
             saldo = valor
         }
-    }
+    } */
 }
 
 
